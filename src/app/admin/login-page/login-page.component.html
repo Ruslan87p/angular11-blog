@@ -1,0 +1,155 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+        <div id="first" *ngIf="login">
+            <div class="form">
+                 <div class="logo mb-3">
+                     <div class="col-md-12 text-center">
+                        <h1>Login to Admin Panel</h1>
+                     </div>
+
+                     <div class="alert alert-danger" *ngIf="authSvc.error$ | async as error">
+                        {{error}}
+                     </div>
+
+                     <div class="alert alert-warning" *ngIf="message">
+                      {{message}}
+                    </div>
+
+                </div>
+               <form action="" [formGroup]="form" (ngSubmit)="submit()" name="login">
+                       <!-- <div class="form-group" [ngClass]="{invalid: email.touched && email.invalid}">
+                          <label for="email">Email address</label>
+                          <input
+                          type="email"
+                          name="email"
+                          class="form-control m-0"
+                          id="email"
+                          aria-describedby="emailHelp"
+                          placeholder="Enter email"
+                          formControlName="email">
+                            <div class="text-danger" *ngIf="email.touched && email.invalid">
+                              <small *ngIf="email.errors!.required" class="font-weight-normal">email is required</small>
+                              <small *ngIf="email.errors!.email" class="font-weight-normal">Please fill a correct email</small>
+                            </div>
+                       </div>
+                       <div class="form-group" [ngClass]="{invalid: password.touched && password.invalid}">
+                          <label for="password">Password</label>
+                          <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          class="form-control m-0"
+                          aria-describedby="emailHedfdflp"
+                          placeholder="Enter Password"
+                          formControlName="password">
+                          <div class="text-danger" *ngIf="password.touched && password.invalid">
+                            <small *ngIf="password.errors!.required" class="font-weight-normal">password is required</small>
+                            <small *ngIf="password.errors!.minlength" class="font-weight-normal">
+                              Password must be {{password.errors!.minlength.requiredLength}} characters long, now password is {{password.errors!.minlength.actualLength}} characters
+                            </small>
+                          </div>
+                       </div> -->
+
+
+                       
+
+                  <mat-form-field appearance="outline">
+                     <mat-label>Email adress</mat-label>
+                     <input class="w-100"  formControlName="email" matInput autocomplete="on" placeholder="Placeholder">
+                     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      
+                     <mat-error *ngIf="checkError('email', 'email') && !checkError('email', 'required')">
+                        Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="checkError('email', 'required')">
+                        Email is <strong>required</strong>
+                        </mat-error> 
+   
+                  </mat-form-field>
+         
+                 <mat-form-field appearance="outline">
+                     <mat-label>Enter your password</mat-label>
+                        <input matInput formControlName="password" autocomplete="off" [type]="hide ? 'password' : 'text'">
+                           <button mat-flat-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                           </button>
+
+                           <mat-hint>Errors appear instantly!</mat-hint>
+
+                           <mat-error *ngIf="checkError('password', 'minlength') && !checkError('password', 'required')">
+                              Password must be {{password.errors!.minlength.requiredLength}} characters long, now password is {{password.errors!.minlength.actualLength}} characters
+                           </mat-error>
+                              <mat-error *ngIf="checkError('password', 'required')">
+                              Password is <strong>required</strong>
+                           </mat-error>     
+
+                </mat-form-field>
+
+
+                       <div class="form-group">
+                          <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
+                       </div>
+                       <div class="col-md-12 text-center d-flex align-items-center justify-content-center p-0">
+                          <button type="submit"
+                          [disabled]="form.invalid || submitted"
+                          class="btn col-md-6 btn-block btn-primary m-0">Login</button>
+
+                       </div>
+                       <div class="col-md-12 ">
+                       </div>
+                       <div class="col-md-12 mb-3">
+                          <p class="text-center">
+                             <a href="#" class="google btn mybtn"><i class="fa fa-google-plus">
+                             </i> Signup using Google
+                             </a>
+                          </p>
+                       </div>
+                       <div class="form-group">
+                          <p class="text-center">Don't have account? <span (click)="login = false" id="signup">Sign up here</span></p>
+                       </div>
+
+                    </form>
+
+            </div>
+        </div>
+
+          <!-- <div id="second" *ngIf="!login">
+              <div class="myform form ">
+                    <div class="logo mb-3">
+                       <div class="col-md-12 text-center">
+                          <h1 >Signup</h1>
+                       </div>
+                    </div>
+                    <form  name="registration">
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">First Name</label>
+                          <input type="text"  name="firstname" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="Enter Firstname">
+                       </div>
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Last Name</label>
+                          <input type="text"  name="lastname" class="form-control" id="lastname" aria-describedby="emailHelp" placeholder="Enter Lastname">
+                       </div>
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                       </div>
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Password</label>
+                          <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+                       </div>
+                       <div class="col-md-12 text-center mb-3">
+                          <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Submit</button>
+                       </div>
+                       <div class="col-md-12 ">
+                          <div class="form-group">
+                             <p class="text-center"><span (click)="login = true" id="signin">Already have an account?</span></p>
+                          </div>
+                       </div>
+                    </form>
+                </div>
+
+
+        </div> -->
+    </div>
+  </div>

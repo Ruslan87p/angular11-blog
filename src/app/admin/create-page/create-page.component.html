@@ -1,0 +1,64 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-6"> -->
+
+
+      <form formGroup="form" (ngSubmit)="submit()">
+
+        <h1>Create new post</h1>
+        <hr>
+        <!-- [ngClass]="{invalid: title.touched && title.invalid}" -->
+        <div class="form-group">
+          <label for="title">Post title:</label>
+          <input
+          type="text"
+          name="title"
+          class="form-control m-0"
+          id="title"
+          aria-describedby="titleHelp"
+          placeholder="Enter title"
+          formControlName="title">
+            <!-- <div class="text-danger" *ngIf="title.touched && title.invalid">
+              <small *ngIf="title.errors!.required" class="font-weight-normal">Title is required</small>
+            </div> -->
+      </div>
+
+
+
+      <div class="form-group">
+        <div class="form-control">
+          <label for="content">Content post:</label>
+          <quill-editor formControlName="text"></quill-editor>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label for="author">Post author:</label>
+          <input
+          type="text"
+          name="author"
+          class="form-control m-0"
+          id="author"
+          aria-describedby="titleHelp"
+          placeholder="Author's name"
+          formControlName="author">
+            <!-- <div class="text-danger" *ngIf="author.touched && author.invalid">
+              <small *ngIf="author.errors!.required" class="font-weight-normal">Author's name is required</small>
+            </div> -->
+      </div>
+
+      <!-- [disabled]="form.invalid" -->
+        <button
+          type="submit"
+          class="btn btn-block btn-dark"
+          >Create post
+        </button>
+
+      </form>
+
+    <!-- </div>
+  </div>
+</div> -->

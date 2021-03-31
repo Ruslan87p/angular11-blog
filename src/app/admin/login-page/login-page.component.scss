@@ -1,0 +1,14 @@
+mat-form-field {
+    display: block;
+    input[type=text], input[type=email], input[type=password], input[type=date] {
+        display: block;
+        width: 100%;
+        padding: 0; 
+        font-size: 100%; 
+        border: none;
+    }
+    button {
+        border: none;
+        background: transparent;
+    }
+}
