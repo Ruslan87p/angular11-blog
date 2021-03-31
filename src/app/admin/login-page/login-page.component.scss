@@ -1,6 +1,6 @@
 mat-form-field {
     display: block;
-    input[type=text], input[type=email], input[type=password], input[type=date] {
+    input[type=email], input[type=password] {
         display: block;
         width: 100%;
         padding: 0; 
@@ -11,4 +11,14 @@ mat-form-field {
         border: none;
         background: transparent;
     }
+}
+
+
+// Font Variables
+$roboto-slab: 'Roboto Slab', serif;   
+$montserrat: 'Montserrat', sans-serif;
+
+.title {
+    font-family: $montserrat in !important;
+    font-weight: 400;
 }

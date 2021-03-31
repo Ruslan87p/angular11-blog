@@ -2,61 +2,25 @@
     <div class="row">
         <div class="col-md-5 mx-auto">
         <div id="first" *ngIf="login">
-            <div class="form">
+            <div class="w-100 mt-5">
                  <div class="logo mb-3">
                      <div class="col-md-12 text-center">
-                        <h1>Login to Admin Panel</h1>
+                        <h3 class="title">Login to Admin Panel</h3>
                      </div>
+                        <div class="alert alert-danger" *ngIf="authSvc.error$ | async as error">
+                           {{error}}
+                        </div>
 
-                     <div class="alert alert-danger" *ngIf="authSvc.error$ | async as error">
-                        {{error}}
+                        <div class="alert alert-warning" *ngIf="message">
+                        {{message}}
                      </div>
-
-                     <div class="alert alert-warning" *ngIf="message">
-                      {{message}}
-                    </div>
-
                 </div>
-               <form action="" [formGroup]="form" (ngSubmit)="submit()" name="login">
-                       <!-- <div class="form-group" [ngClass]="{invalid: email.touched && email.invalid}">
-                          <label for="email">Email address</label>
-                          <input
-                          type="email"
-                          name="email"
-                          class="form-control m-0"
-                          id="email"
-                          aria-describedby="emailHelp"
-                          placeholder="Enter email"
-                          formControlName="email">
-                            <div class="text-danger" *ngIf="email.touched && email.invalid">
-                              <small *ngIf="email.errors!.required" class="font-weight-normal">email is required</small>
-                              <small *ngIf="email.errors!.email" class="font-weight-normal">Please fill a correct email</small>
-                            </div>
-                       </div>
-                       <div class="form-group" [ngClass]="{invalid: password.touched && password.invalid}">
-                          <label for="password">Password</label>
-                          <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          class="form-control m-0"
-                          aria-describedby="emailHedfdflp"
-                          placeholder="Enter Password"
-                          formControlName="password">
-                          <div class="text-danger" *ngIf="password.touched && password.invalid">
-                            <small *ngIf="password.errors!.required" class="font-weight-normal">password is required</small>
-                            <small *ngIf="password.errors!.minlength" class="font-weight-normal">
-                              Password must be {{password.errors!.minlength.requiredLength}} characters long, now password is {{password.errors!.minlength.actualLength}} characters
-                            </small>
-                          </div>
-                       </div> -->
 
-
-                       
+               <form [formGroup]="form" (ngSubmit)="submit()" name="login">
 
                   <mat-form-field appearance="outline">
                      <mat-label>Email adress</mat-label>
-                     <input class="w-100"  formControlName="email" matInput autocomplete="on" placeholder="Placeholder">
+                     <input class="w-100"  formControlName="email" matInput autocomplete="on">
                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
       
                      <mat-error *ngIf="checkError('email', 'email') && !checkError('email', 'required')">
@@ -71,7 +35,7 @@
                  <mat-form-field appearance="outline">
                      <mat-label>Enter your password</mat-label>
                         <input matInput formControlName="password" autocomplete="off" [type]="hide ? 'password' : 'text'">
-                           <button mat-flat-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                           <button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                            </button>
 
@@ -91,9 +55,10 @@
                           <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
                        </div>
                        <div class="col-md-12 text-center d-flex align-items-center justify-content-center p-0">
-                          <button type="submit"
+
+                          <button mat-flat-button color="primary" type="submit"
                           [disabled]="form.invalid || submitted"
-                          class="btn col-md-6 btn-block btn-primary m-0">Login</button>
+                          class="btn col-md-8 m-0 p-1">Login</button>
 
                        </div>
                        <div class="col-md-12 ">
