@@ -1,64 +1,57 @@
-<!-- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-md-6"> -->
+    <div class="col-md-12">
 
 
-      <form formGroup="form" (ngSubmit)="submit()">
-
+      <form [formGroup]="form">
+        <!-- (ngSubmit)="onCreatePost()" -->
         <h1>Create new post</h1>
         <hr>
-        <!-- [ngClass]="{invalid: title.touched && title.invalid}" -->
-        <div class="form-group">
-          <label for="title">Post title:</label>
-          <input
-          type="text"
-          name="title"
-          class="form-control m-0"
-          id="title"
-          aria-describedby="titleHelp"
-          placeholder="Enter title"
-          formControlName="title">
-            <!-- <div class="text-danger" *ngIf="title.touched && title.invalid">
-              <small *ngIf="title.errors!.required" class="font-weight-normal">Title is required</small>
-            </div> -->
+        <!-- [ngClass]="{invalid: form.value.title.touched && form.value.title.invalid}" -->
+        <div class="form-group d-flex flex-row justify-content-between">
+          
+          <mat-form-field class="w-50 mr-2" appearance="outline">
+            <mat-label>Post title:</mat-label>
+            <input matInput type="text" placeholder="Insert post title" formControlName="title">
+            <button mat-button *ngIf="form.value.title" matSuffix mat-icon-button aria-label="Clear" (click)="form.controls['title'].reset()">
+              <mat-icon>close</mat-icon>
+            </button>
+
+            <mat-error class="text-danger" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+              <p *ngIf="sharedSvc.checkError('title', 'required', form)" class="font-weight-normal">Title is required</p>
+            </mat-error> 
+          </mat-form-field>
+
+
+
+          
+        <mat-form-field class="w-50 ml-2" appearance="outline">
+          <mat-label>Past author:</mat-label>
+          <input matInput type="text" placeholder="Insert author's name" formControlName="author">
+
+          <mat-error class="text-danger" *ngIf="form.controls.author.touched && form.controls.author.invalid">
+            <p *ngIf="sharedSvc.checkError('author', 'required', form) " class="font-weight-normal">Author's name is required</p>
+          </mat-error> 
+
+        </mat-form-field>
+
+  
       </div>
 
-
-
       <div class="form-group">
-        <div class="form-control">
           <label for="content">Content post:</label>
-          <quill-editor formControlName="text"></quill-editor>
-        </div>
+          <quill-editor  class="content-editor" formControlName="text"></quill-editor>
       </div>
 
 
-
-
-      <div class="form-group">
-        <label for="author">Post author:</label>
-          <input
-          type="text"
-          name="author"
-          class="form-control m-0"
-          id="author"
-          aria-describedby="titleHelp"
-          placeholder="Author's name"
-          formControlName="author">
-            <!-- <div class="text-danger" *ngIf="author.touched && author.invalid">
-              <small *ngIf="author.errors!.required" class="font-weight-normal">Author's name is required</small>
-            </div> -->
+      <div class="form-group w-25">
+        <button mat-flat-button (click)="onCreatePost(); $event.preventDefault()" color="primary" type="submit"
+        [disabled]="form.invalid"
+        class="btn col-md-8 m-0 p-1">Create post</button>
       </div>
-
-      <!-- [disabled]="form.invalid" -->
-        <button
-          type="submit"
-          class="btn btn-block btn-dark"
-          >Create post
-        </button>
 
       </form>
 
-    <!-- </div>
+    </div>
   </div>
-</div> -->
+</div>

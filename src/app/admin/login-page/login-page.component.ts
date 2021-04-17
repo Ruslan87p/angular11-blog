@@ -3,7 +3,10 @@ import { User } from '../../shared/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { SharedService } from 'src/app/shared/shared/shared.service';
+
+
 
 
 @Component({
@@ -18,20 +21,22 @@ export class LoginPageComponent implements OnInit {
   password!: FormControl;
   submitted = false;
   message!: string;
-
-  matcher = new ErrorStateMatcher();
+  hide = true;
+  login = true;
+  durationInSeconds = 5;
 
 
   constructor(
     public authSvc: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public snackBar: MatSnackBar,
+    public sharedSvc: SharedService
   ) { }
 
 
-  hide = true;
-  login = true;
+
   ngOnInit(): void {
 
     // подписка на параметр который передавался в гуарде
@@ -39,6 +44,8 @@ export class LoginPageComponent implements OnInit {
     .subscribe( (params: Params) => {
       if (params['loginAgain']) {
         this.message = 'Please login';
+      } else if (params['authFailed']) {
+        this.message = 'This session is expired, please enter again'
       }
     });
 
@@ -54,9 +61,6 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  public checkError = (controlName: string, errorName: string) => {
-    return this.form.controls[controlName].hasError(errorName);
-  }
 
   createFormControls() {
     this.email = new FormControl('', [
@@ -73,6 +77,8 @@ export class LoginPageComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    
+
 
     this.submitted = true;
 
@@ -83,6 +89,7 @@ export class LoginPageComponent implements OnInit {
 
     this.authSvc.logIn(user)
       .subscribe( (res) => {
+        console.log(res, 'LoginPageComponent response on subscribe when logged in');
         this.form.reset();
         this.router.navigate(['/admin', 'dashboard']);
         this.submitted = false;

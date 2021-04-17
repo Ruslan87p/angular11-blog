@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 
@@ -14,6 +14,8 @@ export class AdminLayoutComponent implements OnInit {
     public authSvc: AuthService
     ) { }
 
+  @ViewChild('sidenav') sidenav: any;
+
   ngOnInit(): void {
   }
 
@@ -22,6 +24,10 @@ export class AdminLayoutComponent implements OnInit {
     console.log(event);
     this.authSvc.logOut();
     this.router.navigate(['/admin', 'login']);
+  }
+
+  public onToggleSidenav = () => {
+    this.sidenav.toggle();
   }
 
 }

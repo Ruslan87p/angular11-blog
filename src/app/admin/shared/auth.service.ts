@@ -5,12 +5,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-@Injectable()
+import {MatSnackBar} from '@angular/material/snack-bar';
+
+
+
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
-  public error$: Subject<string> = new Subject<string>();
+  // public error$: Subject<string> = new Subject<string>();
+  durationInSeconds = 5;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient,
+              private snackBar: MatSnackBar) { }
 
   // firebaseConfig = {
   //   apiKey: "AIzaSyDJcQv8gliQZOIfd_ch517metitqiR4KvQ",
@@ -51,20 +58,35 @@ export class AuthService {
     return !!this.token;
   }
 
+    
 
+  errorMesage(message: string) {
+    // message error
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 4000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
 
 
   private handleError(error: HttpErrorResponse): any {
     const {message} = error.error.error;
+
+
+
     switch (message) {
       case 'INVALID_EMAIL':
-        this.error$.next('Wrong email')
+        // this.error$.next('Wrong email')
+        this.errorMesage('Wrong email')
         break;
       case 'INVALID_PASSWORD':
-        this.error$.next('Wrong password')
+        // this.error$.next('Wrong password')
+        this.errorMesage('Wrong password')
         break;
       case 'EMAIL_NOT_FOUND':
-        this.error$.next('Email not found')
+        // this.error$.next('Email not found')
+        this.errorMesage('Email not found')
         break;
     }
       return throwError(error);
