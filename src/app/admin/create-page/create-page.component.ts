@@ -1,6 +1,8 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PostsService } from './../../shared/shared/posts.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/shared/interfaces/interfaces';
+import { SharedService } from 'src/app/shared/shared/shared.service';
 
 @Component({
   selector: 'app-create-page',
@@ -9,52 +11,50 @@ import { Post } from 'src/app/shared/interfaces/interfaces';
 })
 export class CreatePageComponent implements OnInit {
 
-  form!: FormGroup;
-  title!: any;
-  author!: any;
-  text!: any;
 
+  public form!: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+              private postSvs: PostsService,
+              public sharedSvc: SharedService) { }
 
   ngOnInit(): void {
 
-    this.createForm();
-    this.createFormControls();
+    this.form = this.fb.group({
+      title: new FormControl(null, [
+        Validators.required,
+      ]),
+      author: new FormControl(null, [
+        Validators.required,
+      ]),
+      text: new FormControl(null, [
+        Validators.required,
+      ])
+		});
 
   }
+  
 
-  createForm() {
-    this.form = new FormGroup({
-      title: this.title,
-      text: this.text,
-      author: this.author,
-    });
-  }
 
-  createFormControls() {
-    this.title = new FormControl(null, [
-      Validators.required,
-    ]);
-    this.author = new FormControl(null, [
-      Validators.required,
-    ]);
-    this.text = new FormControl(null, [
-      Validators.required,
-    ]);
-  }
+  onCreatePost() {
 
-  submit() {
     if (this.form.invalid) {
       return;
     }
 
     const post: Post = {
-      title: this.title,
-      author: this.author,
-      text: this.text,
+      title: this.form.value.title,
+      author: this.form.value.author,
+      text: this.form.value.text,
       date: new Date()
     }
+
+    this.postSvs.create(post)
+    .subscribe( (p) => {
+      console.log(p, 'this.postSvs.create');
+      this.form.reset();
+    })
+
   }
 
 }

@@ -1,1 +1,42 @@
-<p>dashboard-page works!</p>
+
+<div *ngIf="posts; else loading">
+
+    <div class="w-100 mt-3">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Search post</mat-label>
+            <input matInput [(ngModel)]="search">
+        </mat-form-field>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead class="w-100">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Author</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of posts | search: search; let idx = index" scope="row">
+                <td>{{idx + 1}}</td>
+                <td>{{post.author}}</td>
+                <td>{{post.title}}</td>
+                <td [innerHtml]="post.text"></td>
+                <th>{{post.date | date: 'medium'}}</th>
+                <td>
+                    <button class="btn btn-primary mr-1 ml-1" [routerLink]="['/admin', 'post', post.id, 'edit']">Open details</button>
+                    <button class="btn btn-danger mr-1 ml-1" (click)="remove(post.id!)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+</div>
+
+
+<ng-template #loading>
+    <p class="text-center">Loading...</p>
+</ng-template>

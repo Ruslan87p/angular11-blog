@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
@@ -11,6 +11,10 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { SharedModule } from './shared/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/shared/auth.interceptor';
+import { SharedService } from './shared/shared/shared.service';
+import { SearchPipe } from './admin/shared/search.pipe';
 
 
 
@@ -31,6 +35,15 @@ const routes: Routes = [
 ];
 
 
+const INTERCEPTOR_PROVIDER: Provider = {
+  // токен который характеризует интерсепторы
+  provide: HTTP_INTERCEPTORS,
+  // чтобы не контачили интерсепторы, если будет добавлен новый то выполнится последовательно
+  multi: true,
+  // параметр со значением интерсептора
+  useClass: AuthInterceptor
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,17 +52,20 @@ const routes: Routes = [
     EditPageComponent,
     DashboardPageComponent,
     PostComponent,
-    HomePageComponent
+    HomePageComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     SharedModule,
     RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules
+      preloadingStrategy: PreloadAllModules,
+      // useHash: false
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDER, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

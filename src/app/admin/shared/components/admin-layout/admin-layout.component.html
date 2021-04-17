@@ -1,39 +1,39 @@
-<div class="container-fluid p-0 m-0">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info mb-0 d-flex">
-    <div class="d-flex justify-content-between align-items-center w-100">
-      <a class="navbar-brand" routerLink="/">Admin Panel</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav d-flex align-items-center">
-        <ul class="m-0" *ngIf="authSvc.IsAuthenticated()">
-          <li routerLinkActive="active">
-            <a class="nav-item nav-link active" routerLink="dashboard">Dashboard</a>
-          </li>
-          <li routerLinkActive="active">
-            <a class="nav-item nav-link" routerLink="create">Create</a>
-          </li>
-          <li>
-            <a class="nav-item nav-link" href="#" (click)="logOut($event)">LogOut</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-
-<!-- <div class="jumbotron">
-  <div class="container">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  </div>
-</div> -->
+<!-- <app-main-nav></app-main-nav> -->
 
 
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+      <!--this is a place for us to add side-nav code-->
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <!--in here all the content must reside. We will add a navigation header as well-->
+      
+        <mat-toolbar color="primary">
+          <div class="nav-bar container" *ngIf="authSvc.IsAuthenticated()">
+              <button mat-icon-button (click)="onToggleSidenav()">
+                  <mat-icon>menu</mat-icon>
+              </button>
+
+              <ul class="d-flex p-0">
+                  <li routerLinkActive="active" class="nav-item active">
+                      <a class="nav-link" routerLink="dashboard">Dashboard</a>
+                  </li>
+                  <li routerLinkActive="active" class="nav-item">
+                      <a class="nav-link" routerLink="create">Create</a>
+                  </li>
+                  <li>
+                    <a class="nav-item nav-link" href="#" (click)="logOut($event)">LogOut</a>
+                  </li>
+              </ul>
+          </div>
+        </mat-toolbar>
+
+      <main>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+      </main>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>

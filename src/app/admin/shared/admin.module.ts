@@ -7,7 +7,6 @@ import { CreatePageComponent } from '../create-page/create-page.component';
 import { EditPageComponent } from '../edit-page/edit-page.component';
 import { PostPageComponent } from 'src/app/post-page/post-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './auth.service';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AuthGuardService } from './auth-guard.service';
 
@@ -22,8 +21,8 @@ import { AuthGuardService } from './auth-guard.service';
   ],
   imports: [
     FormsModule,
-    SharedModule,
     ReactiveFormsModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
@@ -58,10 +57,11 @@ import { AuthGuardService } from './auth-guard.service';
     ])
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
-    AuthService,
     AuthGuardService
   ]
 })
