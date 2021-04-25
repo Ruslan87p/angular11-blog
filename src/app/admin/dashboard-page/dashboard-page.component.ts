@@ -1,3 +1,4 @@
+import { AlertService } from './../shared/alert.service';
 import { PostsService } from './../../shared/shared/posts.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Post } from 'src/app/shared/interfaces/interfaces';
@@ -16,18 +17,16 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   search = '';
 
   constructor(
-    private postSvs: PostsService
+    private postSvs: PostsService,
+    private alertSvc: AlertService
   ) { }
 
   
   ngOnInit(): void {
-
-    console.log(this.search, 'SEARCH');
    
     this.sub = this.postSvs.getAll()
     .subscribe( (posts) => {
       this.posts = posts;
-      console.log(posts);
     })
   }
 
@@ -44,6 +43,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.deleteSub = this.postSvs.remove(id)
     .subscribe( () => {
       this.posts = this.posts.filter( (post) => post.id !== id)
+      this.alertSvc.danger('Post was successfully deleted');
     });
   }
 

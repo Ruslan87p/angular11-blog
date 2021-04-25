@@ -1,8 +1,7 @@
-<div class="container">
-
-
-    <app-post  *ngFor="let p of posts; let ind = index">
-        {{ind}}
-    </app-post>
-
+<div class="container cont-custom" *ngIf="posts$ | async as posts; else loading">
+    <app-post *ngFor="let post of posts" [post]="post"></app-post>
 </div>
+
+<ng-template #loading>
+    <p>Loading posts...</p>
+</ng-template>

@@ -13,6 +13,18 @@
               <p *ngIf="sharedSvc.checkError('title', 'required', form)" class="font-weight-normal">Title is required</p>
             </mat-error> 
           </mat-form-field>
+
+          <mat-form-field class="w-50 mr-2" appearance="outline">
+            <mat-label>Post author:</mat-label>
+            <input matInput type="text" placeholder="Insert post author" formControlName="author">
+            <button mat-button *ngIf="form.value.author" matSuffix mat-icon-button aria-label="Clear" (click)="form.controls['author'].reset()">
+              <mat-icon>close</mat-icon>
+            </button>
+    
+            <mat-error class="text-danger" *ngIf="form.controls.author.touched && form.controls.author.invalid">
+              <p *ngIf="sharedSvc.checkError('author', 'required', form)" class="font-weight-normal">Title is required</p>
+            </mat-error> 
+          </mat-form-field>
     
         <div class="form-group">
             <label for="content">Content post:</label>
@@ -20,7 +32,7 @@
         </div>
     
         <div class="form-group w-25">
-            <button mat-flat-button (click)="onUpdatePost()" color="primary" type="submit"
+            <button mat-flat-button color="primary" type="submit"
             [disabled]="form.invalid || submitted"
             class="btn col-md-8 m-0 p-1">Create post</button>
           </div>

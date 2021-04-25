@@ -31,9 +31,9 @@ export class AuthInterceptor implements HttpInterceptor {
         // вызывается функцию next и вызывается метод который возвращает стрим, куда передается реквест
         return next.handle(req)
         .pipe(
-            tap( () => {
-                console.log('Interceptor');
-            }),
+            // tap( () => {
+            //     console.log('Interceptor');
+            // }),
             catchError( (error: HttpErrorResponse) => {
                 // оператор делает из ошибки Observable
                 console.log('interseptor error: -- ', error)
