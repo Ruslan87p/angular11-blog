@@ -1,3 +1,4 @@
+import { AlertService } from './../shared/alert.service';
 import { PostsService } from './../../shared/shared/posts.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,8 @@ export class CreatePageComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private postSvs: PostsService,
-              public sharedSvc: SharedService) { }
+              public sharedSvc: SharedService,
+              private alertSvc: AlertService) { }
 
   ngOnInit(): void {
 
@@ -53,6 +55,7 @@ export class CreatePageComponent implements OnInit {
     .subscribe( (p) => {
       console.log(p, 'this.postSvs.create');
       this.form.reset();
+      this.alertSvc.success('Post was successfully created');
     })
 
   }

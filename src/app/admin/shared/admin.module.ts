@@ -9,6 +9,8 @@ import { PostPageComponent } from 'src/app/post-page/post-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AuthGuardService } from './auth-guard.service';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './alert.service';
 
 
 
@@ -17,7 +19,8 @@ import { AuthGuardService } from './auth-guard.service';
   declarations: [
     AdminLayoutComponent,
     LoginPageComponent,
-    PostPageComponent
+    PostPageComponent,
+    AlertComponent
   ],
   imports: [
     FormsModule,
@@ -62,7 +65,8 @@ import { AuthGuardService } from './auth-guard.service';
     ReactiveFormsModule,
   ],
   providers: [
-    AuthGuardService
+    AuthGuardService,
+    AlertService
   ]
 })
 export class AdminModule { }

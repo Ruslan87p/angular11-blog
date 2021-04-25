@@ -15,8 +15,20 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/shared/auth.interceptor';
 import { SharedService } from './shared/shared/shared.service';
 import { SearchPipe } from './admin/shared/search.pipe';
+import { registerLocaleData } from '@angular/common';
+import ilLocale from '@angular/common/locales/en-IL';
 
+// локализация даты в админке в постах
+registerLocaleData(ilLocale, 'il')
 
+const INTERCEPTOR_PROVIDER: Provider = {
+  // токен который характеризует интерсепторы
+  provide: HTTP_INTERCEPTORS,
+  // чтобы не контачили интерсепторы, если будет добавлен новый то выполнится последовательно
+  multi: true,
+  // параметр со значением интерсептора
+  useClass: AuthInterceptor
+}
 
 const routes: Routes = [
   {
@@ -33,16 +45,6 @@ const routes: Routes = [
     loadChildren: () => import('./admin/shared/admin.module').then(m => m.AdminModule)
   }
 ];
-
-
-const INTERCEPTOR_PROVIDER: Provider = {
-  // токен который характеризует интерсепторы
-  provide: HTTP_INTERCEPTORS,
-  // чтобы не контачили интерсепторы, если будет добавлен новый то выполнится последовательно
-  multi: true,
-  // параметр со значением интерсептора
-  useClass: AuthInterceptor
-}
 
 @NgModule({
   declarations: [

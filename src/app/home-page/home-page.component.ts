@@ -1,3 +1,6 @@
+import { Post } from './../shared/interfaces/interfaces';
+import { Observable } from 'rxjs';
+import { PostsService } from './../shared/shared/posts.service';
 import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
 
 @Component({
@@ -7,13 +10,13 @@ import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private vcref: ViewContainerRef,
-    private cfr: ComponentFactoryResolver) { }
+  posts$!: Observable<Post[]>
 
-    posts = ["Test One", "Test Two", "Test Three"];
+  constructor(private postSvs: PostsService) { }
 
 
   ngOnInit(): void {
+    this.posts$ = this.postSvs.getAll();
   }
 
 }

@@ -16,7 +16,6 @@ export class PostsService {
   create(post: Post): Observable<Post> {
     return this.http.post(`${environment.fbDBUrl}/posts.json`, post)
       .pipe(map( (response: any) => {
-        console.log(response, 'RESPONSE')
           return {
             ...post,
             id: response.name,
@@ -28,7 +27,6 @@ export class PostsService {
   getAll(): Observable<Post[]> {
     return this.http.get(`${environment.fbDBUrl}/posts.json`)
     .pipe(map( (response: {[key: string]: any}) => {
-      console.log(response);
       // парсим
       return Object.keys(response)
       .map( key => ({
