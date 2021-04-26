@@ -1,20 +1,24 @@
-<div class="container">
+<div class="container" *ngIf="post$ | async as post; else loading">
     <div class="card content">
-        <img class="card-img-top img-fluid rounded" src="http://placehold.it/900x300" alt="Card image cap">
+        <img class="card-img-top img-fluid" [src]=" 'http://placehold.it/900x300' ? post.img : 'http://placehold.it/900x300' " alt="Card image cap">
         <div class="card-body">
-          <h2 class="card-title">Serengeti</h2>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+          <h2 class="card-title">{{post.title}}</h2>
+          <quill-view-html [content]="post.text"></quill-view-html>
           <button [routerLink]="['/']" class="btn btn-link">← Back to home</button>
     
         </div>
         <div class="card-footer text-muted">
             <div class="info">
-                <strong>Author</strong>
+                <strong>{{post.author}}</strong>
             </div>
-          Posted on <small>12/09/19</small>
+          Posted on <small>{{post.date | date:'medium':'IL'}}</small>
         </div>
       </div>
 </div>
+
+<ng-template #loading>
+  <p>loading post...</p>
+</ng-template>
 
 
 

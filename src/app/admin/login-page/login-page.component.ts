@@ -89,7 +89,6 @@ export class LoginPageComponent implements OnInit {
 
     this.authSvc.logIn(user)
       .subscribe( (res) => {
-        console.log(res, 'LoginPageComponent response on subscribe when logged in');
         this.form.reset();
         this.router.navigate(['/admin', 'dashboard']);
         this.submitted = false;
