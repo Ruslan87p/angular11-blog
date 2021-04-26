@@ -17,6 +17,8 @@ import { SharedService } from './shared/shared/shared.service';
 import { SearchPipe } from './admin/shared/search.pipe';
 import { registerLocaleData } from '@angular/common';
 import ilLocale from '@angular/common/locales/en-IL';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // локализация даты в админке в постах
 registerLocaleData(ilLocale, 'il')
@@ -65,6 +67,12 @@ const routes: Routes = [
       // useHash: false
     }),
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
 
   ],
   providers: [INTERCEPTOR_PROVIDER, SharedService],

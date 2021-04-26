@@ -15,7 +15,8 @@ export interface Post {
   title: string,
   author: string,
   text: string,
-  date: Date
+  date: Date,
+  img?: string
 }
 
 export interface FbCreateResponse {
